@@ -1,0 +1,21 @@
+services:
+  main_app_web:
+    build:
+      context: ..
+      dockerfile: codeCake/Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-}
+    ports:
+      - "${FRONTEND_PORT:-3002}:80"
+    networks:
+      - pokemon-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+networks:
+  pokemon-network:
+    external: true
+    name: ${POKEMON_NETWORK:-pokemon-codecake}
