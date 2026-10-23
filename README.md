@@ -151,23 +151,6 @@ these application repositories cannot enforce it. For retry-exhaustion tests,
 use a dedicated fixture/branch with a controlled failure rather than breaking
 the successful baseline in these repositories.
 
-### Deployment and the SDD URL
-
-The SDD uses `http://20.51.220.99:21050/`, but the frontend default is port 3002.
-On the intended Docker host, configure `FRONTEND_PORT=21050` in the FRONTEND
-agent environment only if that port is available and directly published there.
-If Testrigor Infra already maps the external endpoint, use its assigned internal
-port instead. Keep the same `POKEMON_NETWORK` for both repositories and distinct
-Compose project names. Confirm the endpoint from the test runner before the SDD.
-No change to these archives establishes access to that host or deploys services.
-
-For interactive local development tests use `npm run test:watch`. Both `npm test`
-and `npm run test:ci` run once and exit, including when codeCake infers `npm test`.
-
-### Verification on 2026-10-23
-
-Dependency installation, `scripts/compile.sh`, `scripts/lint.sh`, and
-`scripts/test.sh` passed with Node 24.19.0 / npm 11.9.0. Backend: 10 tests;
 frontend: 6 tests. Frontend `npm test` also passed and exited without watching.
 Shell syntax passed for all phase wrappers and deploy scripts. Docker is absent;
 only the deploy missing-Docker error path was verified, not a live deployment.
